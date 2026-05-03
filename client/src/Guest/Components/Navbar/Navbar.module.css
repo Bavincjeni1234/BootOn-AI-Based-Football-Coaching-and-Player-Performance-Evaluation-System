@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables ─────────────────────────────────────────── */
+:root {
+  --bg:          #0a0a0f;
+  --surface:     #111118;
+  --border:      rgba(255, 255, 255, 0.06);
+  --accent:      #f5c518;
+  --accent-glow: rgba(245, 197, 24, 0.25);
+  --text:        #f0eff5;
+  --muted:       rgba(240, 239, 245, 0.45);
+  --nav-h:       68px;
+}
+
+/* ─── Navbar Shell ──────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-h);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+
+  background: rgba(10, 10, 15, 0.65);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+
+  border-bottom: 1px solid var(--border);
+
+  /* subtle top accent line */
+  box-shadow:
+    inset 0 1px 0 rgba(245, 197, 24, 0.18),
+    0 8px 40px rgba(0, 0, 0, 0.55);
+
+  animation: slideDown 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Brand ─────────────────────────────────────────────── */
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  cursor: default;
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  /* lightning emoji glow */
+  text-shadow: 0 0 18px var(--accent-glow);
+
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+.brand::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brand:hover::after {
+  transform: scaleX(1);
+}
+
+/* ─── Links Container ───────────────────────────────────── */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  animation: fadeIn 0.65s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Base Link Style ───────────────────────────────────── */
+.links a {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.45rem 1.15rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    color        0.22s ease,
+    border-color 0.22s ease,
+    background   0.22s ease,
+    box-shadow   0.22s ease;
+}
+
+/* hover — ghost style */
+.links a:first-child {
+  color: var(--muted);
+}
+
+.links a:first-child:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border);
+}
+
+/* "Player Register" — filled accent CTA */
+.links a:last-child {
+  color: #0a0a0f;
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 500;
+  box-shadow: 0 0 0 0 var(--accent-glow);
+}
+
+.links a:last-child:hover {
+  background: #ffd13a;
+  border-color: #ffd13a;
+  box-shadow: 0 0 20px var(--accent-glow), 0 4px 16px rgba(245, 197, 24, 0.3);
+  transform: translateY(-1px);
+}
+
+.links a:last-child:active {
+  transform: translateY(0px);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* ripple effect on all links */
+.links a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.links a:active::before {
+  opacity: 1;
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 1.25rem;
+  }
+
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  .links {
+    gap: 0.5rem;
+  }
+
+  .links a {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8rem;
+  }
+}

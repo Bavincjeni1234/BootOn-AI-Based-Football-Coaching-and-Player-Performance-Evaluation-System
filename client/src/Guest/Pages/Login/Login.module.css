@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg:       #07070c;
+  --glass:    rgba(255, 255, 255, 0.032);
+  --glass-2:  rgba(255, 255, 255, 0.055);
+  --rim:      rgba(255, 255, 255, 0.09);
+  --rim-gold: rgba(245, 197, 24, 0.5);
+  --text:     #ece9f1;
+  --muted:    rgba(236, 233, 241, 0.36);
+  --dim:      rgba(236, 233, 241, 0.14);
+  --gold:     #f5c518;
+  --gold-dk:  #b8920e;
+  --gold-glow:rgba(245, 197, 24, 0.18);
+}
+
+/* ── Page ────────────────────────────────────────────────── */
+.loginPage {
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  font-family: 'DM Sans', sans-serif;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Messi wallpaper background */
+.loginPage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url("../../../assets/mesi2.jpg");
+  background-size: cover;
+  background-position: center;
+
+  opacity: 1.9;                /* increased visibility */
+  filter: brightness(1) blur(1.2px);
+
+  z-index: 0;
+}
+
+/* dark overlay to keep UI readable */
+.loginPage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at center,
+      rgba(10,10,15,0.10),
+      rgba(10,10,15,0.75)
+  );
+  z-index: 1;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.loginCard {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 380px;
+  background: var(--glass);
+  border: 1px solid var(--rim);
+  border-radius: 20px;
+  padding: 3rem 2.5rem 2.75rem;
+  box-sizing: border-box;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.025) inset,
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 40px 80px rgba(0,0,0,0.7),
+    0 0 120px rgba(0,0,0,0.5);
+
+  animation: rise 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* gold top edge */
+.loginCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--rim-gold) 30%,
+    var(--gold) 50%,
+    var(--rim-gold) 70%,
+    transparent
+  );
+}
+
+/* bottom reflection */
+.loginCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.04) 40%,
+    rgba(255,255,255,0.06) 50%,
+    rgba(255,255,255,0.04) 60%,
+    transparent
+  );
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(32px) scale(0.97); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* ── Brand ───────────────────────────────────────────────── */
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand::before {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ── Title ──────────────────────────────────────────────── */
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2.05rem;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  color: var(--text);
+  margin-bottom: 0.55rem;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+
+/* ── Input group ─────────────────────────────────────────── */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.inputGroup label {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* ── Input ───────────────────────────────────────────────── */
+.inputGroup input {
+  width: 100%;
+  background: rgba(255,255,255,0.028);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  padding: 0.82rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.22s ease, background 0.22s ease;
+}
+
+.inputGroup input:focus {
+  background: rgba(245,197,24,0.03);
+  border-color: rgba(245,197,24,0.35);
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rim) 30%, var(--rim) 70%, transparent);
+  margin: 0.5rem 0 1.75rem;
+}
+
+/* ── Login button ────────────────────────────────────────── */
+.loginBtn {
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #0a0800;
+  background: var(--gold);
+  border: none;
+  border-radius: 9px;
+  padding: 0.9rem 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(245,197,24,0.22);
+  transition: transform 0.15s ease;
+}
+
+.loginBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 420px) {
+  .loginCard { padding: 2.25rem 1.75rem 2.25rem; }
+  .title { font-size: 1.75rem; }
+}

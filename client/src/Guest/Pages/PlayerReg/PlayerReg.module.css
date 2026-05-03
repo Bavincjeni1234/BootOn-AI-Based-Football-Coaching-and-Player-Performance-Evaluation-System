@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@1,700&display=swap');
+
+:root {
+  --bg:            #07070c;
+  --surface:       rgba(14, 14, 22, 0.58);
+  --surface-2:     rgba(255, 255, 255, 0.06);
+  --border:        rgba(255, 255, 255, 0.1);
+  --border-focus:  rgba(245, 197, 24, 0.45);
+  --accent:        #f5c518;
+  --accent-dark:   #b8920e;
+  --accent-glow:   rgba(245, 197, 24, 0.22);
+  --text:          #eeedf4;
+  --muted:         rgba(238, 237, 244, 0.45);
+}
+
+/* ── Page ────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* background image */
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("../../../assets/ney3.jpg");
+  background-size: cover;
+  background-position: center top;
+  filter: brightness(0.85) saturate(1.2);
+  z-index: 0;
+  transform: scale(1.04);
+}
+
+/* very light overlay — just enough for readability */
+.page::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 45%,
+      rgba(7,7,12,0.05) 0%,
+      rgba(7,7,12,0.38) 65%,
+      rgba(7,7,12,0.65) 100%),
+    linear-gradient(180deg,
+      rgba(7,7,12,0.4)  0%,
+      rgba(7,7,12,0.0) 25%,
+      rgba(7,7,12,0.0) 70%,
+      rgba(7,7,12,0.45) 100%);
+  z-index: 1;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 520px;
+
+  background: var(--surface);
+  backdrop-filter: blur(32px) saturate(1.6);
+  -webkit-backdrop-filter: blur(32px) saturate(1.6);
+
+  border: 1px solid rgba(255,255,255,0.11);
+  border-radius: 24px;
+  padding: 0;
+  overflow: hidden;
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 1px 0   rgba(255,255,255,0.09) inset,
+    0 32px 80px rgba(0,0,0,0.6),
+    0 0 120px rgba(0,0,0,0.3);
+
+  animation: cardUp 0.75s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* gold razor line */
+.card::before {
+  content: '';
+  display: block;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245,197,24,0.2) 15%,
+    var(--accent) 42%,
+    rgba(245,197,24,0.85) 58%,
+    rgba(245,197,24,0.12) 82%,
+    transparent 100%
+  );
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(36px) scale(0.96); filter: blur(8px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
+}
+
+/* ── Card inner padding ──────────────────────────────────── */
+.cardBody {
+  padding: 2.5rem 2.5rem 2.75rem;
+}
+
+/* ── Eyebrow ─────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+  opacity: 0.85;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 16px; height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* ── Title ───────────────────────────────────────────────── */
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.85rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text);
+  margin: 0 0 2.25rem;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+}
+
+/* ── Form fields ─────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+  margin-bottom: 1.1rem;
+  animation: fieldIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.field:nth-child(1) { animation-delay: 0.20s; }
+.field:nth-child(2) { animation-delay: 0.26s; }
+.field:nth-child(3) { animation-delay: 0.32s; }
+.field:nth-child(4) { animation-delay: 0.38s; }
+.field:nth-child(5) { animation-delay: 0.44s; }
+.field:nth-child(6) { animation-delay: 0.50s; }
+
+@keyframes fieldIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.field label {
+  font-size: 0.69rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.field:focus-within label { color: var(--accent); }
+
+/* ── Inputs & selects ────────────────────────────────────── */
+.field input,
+.field select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255,255,255,0.11);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field input::placeholder { color: rgba(238,237,244,0.22); }
+
+.field input:hover,
+.field select:hover {
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.1);
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--border-focus);
+  background: rgba(245,197,24,0.05);
+  box-shadow:
+    0 0 0 3px rgba(245,197,24,0.08),
+    0 1px 0 rgba(245,197,24,0.08) inset;
+}
+
+.field input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px rgba(14,14,22,0.85) inset;
+  -webkit-text-fill-color: var(--text);
+}
+
+/* custom select arrow */
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f5c518' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.field select option {
+  background: #13131d;
+  color: var(--text);
+}
+
+/* ── Two-column grid ─────────────────────────────────────── */
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+/* ── File inputs ─────────────────────────────────────────── */
+.field input[type="file"] {
+  border: 1px dashed rgba(245,197,24,0.25);
+  background: rgba(245,197,24,0.03);
+  color: var(--muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0.65rem 1rem;
+}
+
+.field input[type="file"]:hover {
+  border-color: rgba(245,197,24,0.45);
+  background: rgba(245,197,24,0.06);
+}
+
+.field input[type="file"]::-webkit-file-upload-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.73rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: rgba(245,197,24,0.1);
+  border: 1px solid rgba(245,197,24,0.25);
+  border-radius: 6px;
+  padding: 0.25rem 0.7rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.field input[type="file"]::-webkit-file-upload-button:hover {
+  background: rgba(245,197,24,0.18);
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 30%, rgba(255,255,255,0.08) 70%, transparent);
+  margin: 0.75rem 0 1.5rem;
+}
+
+/* ── Submit Button ───────────────────────────────────────── */
+.submitBtn {
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #0a0800;
+  background: var(--accent);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.22) inset,
+    0 -1px 0 var(--accent-dark) inset,
+    0 4px 22px rgba(245,197,24,0.3),
+    0 1px 4px rgba(0,0,0,0.3);
+  transition: background 0.18s ease, transform 0.14s ease, box-shadow 0.18s ease;
+  animation: fieldIn 0.4s 0.56s both;
+}
+
+/* glass sheen */
+.submitBtn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.14) 0%, transparent 100%);
+  border-radius: 10px 10px 0 0;
+  pointer-events: none;
+}
+
+/* shimmer sweep */
+.submitBtn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 55%; height: 100%;
+  background: linear-gradient(110deg, transparent, rgba(255,255,255,0.24), transparent);
+  transform: skewX(-15deg);
+  transition: left 0.55s ease;
+}
+
+.submitBtn:hover::after { left: 130%; }
+
+.submitBtn:hover {
+  background: #f9cf3a;
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.28) inset,
+    0 -1px 0 var(--accent-dark) inset,
+    0 8px 30px rgba(245,197,24,0.45);
+}
+
+.submitBtn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.15) inset,
+    0 -1px 0 var(--accent-dark) inset,
+    0 2px 8px rgba(245,197,24,0.18);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .cardBody  { padding: 2rem 1.5rem 2.25rem; }
+  .title     { font-size: 1.55rem; }
+  .fieldGrid { grid-template-columns: 1fr; }
+}
