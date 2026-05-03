@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables ──────────────────────────────────────────── */
+:root {
+  --bg:          #0a0a0f;
+  --surface:     #111118;
+  --border:      rgba(255, 255, 255, 0.06);
+  --accent:      #f5c518;
+  --accent-glow: rgba(245, 197, 24, 0.22);
+  --accent-dim:  rgba(245, 197, 24, 0.1);
+  --text:        #f0eff5;
+  --muted:       rgba(240, 239, 245, 0.42);
+  --danger:      #ff5f5f;
+  --danger-glow: rgba(255, 95, 95, 0.18);
+  --nav-h:       68px;
+}
+
+/* ─── Navbar Shell ───────────────────────────────────────── */
+.navbarmain {
+  width: 100%;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.25rem;
+
+  background: rgba(17, 17, 24, 0.75);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+
+  border-bottom: 1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 197, 24, 0.1),
+    0 4px 32px rgba(0, 0, 0, 0.4);
+
+  animation: slideDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Brand ──────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: default;
+  user-select: none;
+}
+
+.logoIcon {
+  font-size: 1.3rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px rgba(245, 197, 24, 0.6));
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(245, 197, 24, 0.5)); }
+  50%       { filter: drop-shadow(0 0 14px rgba(245, 197, 24, 0.9)); }
+}
+
+.logoText {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1;
+}
+
+/* ADMIN badge */
+.role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #0a0a0f;
+  background: var(--accent);
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px var(--accent-glow);
+  position: relative;
+  top: -1px;
+}
+
+/* ─── Right Side ─────────────────────────────────────────── */
+.navlinks {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeIn 0.55s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Username ───────────────────────────────────────────── */
+.username {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  /* avatar dot */
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.username::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent) 0%, #c9a010 100%);
+  box-shadow: 0 0 10px var(--accent-glow);
+  flex-shrink: 0;
+}
+
+/* first letter initial inside dot */
+.username::after {
+  content: attr(data-initial);
+  position: absolute;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #0a0a0f;
+  font-family: 'Syne', sans-serif;
+  text-align: center;
+  line-height: 26px;
+}
+
+/* ─── Logout Button ──────────────────────────────────────── */
+.logoutBtn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.825rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--danger);
+
+  background: transparent;
+  border: 1px solid rgba(255, 95, 95, 0.25);
+  border-radius: 8px;
+  padding: 0.45rem 1.1rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  transition:
+    color        0.2s ease,
+    background   0.2s ease,
+    border-color 0.2s ease,
+    box-shadow   0.2s ease,
+    transform    0.15s ease;
+}
+
+/* arrow icon */
+.logoutBtn::after {
+  content: '→';
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.logoutBtn:hover {
+  color: #fff;
+  background: var(--danger);
+  border-color: var(--danger);
+  box-shadow: 0 4px 18px var(--danger-glow);
+  transform: translateY(-1px);
+}
+
+.logoutBtn:hover::after {
+  transform: translateX(3px);
+}
+
+.logoutBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 8px var(--danger-glow);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbarmain {
+    padding: 0 1.25rem;
+  }
+
+  .username {
+    display: none;
+  }
+
+  .logoText {
+    font-size: 1.15rem;
+  }
+}

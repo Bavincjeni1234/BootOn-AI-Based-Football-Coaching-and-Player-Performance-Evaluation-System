@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables ──────────────────────────────────────────── */
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-2:     #16161f;
+  --surface-3:     #1c1c27;
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-focus:  rgba(245, 197, 24, 0.55);
+  --accent:        #f5c518;
+  --accent-dark:   #c9a010;
+  --accent-glow:   rgba(245, 197, 24, 0.22);
+  --accent-dim:    rgba(245, 197, 24, 0.08);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.42);
+  --danger:        #ff5f5f;
+  --danger-dim:    rgba(255, 95, 95, 0.1);
+  --danger-glow:   rgba(255, 95, 95, 0.2);
+  --success:       #4ade80;
+  --success-dim:   rgba(74, 222, 128, 0.1);
+}
+
+/* ─── Page Wrapper ───────────────────────────────────────── */
+.adminreg {
+  padding: 2.5rem 2rem 4rem;
+  min-height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Registration Form Table ────────────────────────────── */
+.regtable {
+  width: 100%;
+  max-width: 860px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.03);
+  margin: 0 auto;
+}
+
+/* Title row */
+.regtable tbody tr:first-child td {
+  padding: 1.75rem 2rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.regtable tbody tr:first-child h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+}
+
+.regtable tbody tr:first-child h2::after {
+  content: ' ⚡';
+  font-size: 1.1rem;
+}
+
+/* Input row */
+.regtable tbody tr:nth-child(2) {
+  background: var(--surface);
+}
+
+.regtable tbody tr:nth-child(2) td {
+  padding: 1.25rem 1rem;
+  vertical-align: middle;
+}
+
+.regtable tbody tr:nth-child(2) td:first-child { padding-left: 2rem; }
+.regtable tbody tr:nth-child(2) td:last-child  { padding-right: 2rem; }
+
+/* Button row */
+.regtable tbody tr:last-child td {
+  padding: 1rem 2rem 1.75rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Form Inputs ────────────────────────────────────────── */
+.regtable input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0.65rem 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.regtable input::placeholder { color: rgba(240,239,245,0.2); }
+.regtable input:hover         { border-color: rgba(255,255,255,0.13); }
+.regtable input:focus {
+  border-color: var(--border-focus);
+  background: #13131c;
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.08);
+}
+
+.regtable input:-webkit-autofill,
+.regtable input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface-2) inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+}
+
+/* ─── Form Buttons ───────────────────────────────────────── */
+.regtable button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: 9px;
+  padding: 0.65rem 1.6rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+/* Submit / Update — gold CTA */
+.regtable button:first-child {
+  color: #0a0a0f;
+  background: var(--accent);
+  box-shadow: 0 2px 0 var(--accent-dark), 0 4px 18px var(--accent-glow);
+}
+
+.regtable button:first-child::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.28), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+}
+.regtable button:first-child:hover::before { left: 130%; }
+.regtable button:first-child:hover {
+  background: #ffd13a;
+  box-shadow: 0 2px 0 var(--accent-dark), 0 6px 22px rgba(245,197,24,0.38);
+  transform: translateY(-2px);
+}
+.regtable button:first-child:active {
+  transform: translateY(0);
+}
+
+/* Cancel — ghost */
+.regtable button:last-child:not(:first-child) {
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  margin-left: 0.5rem;
+}
+.regtable button:last-child:not(:first-child):hover {
+  color: var(--text);
+  background: var(--surface-2);
+  border-color: rgba(255,255,255,0.13);
+}
+
+/* ─── Data Table ─────────────────────────────────────────── */
+.adminreg > center > table:not(.regtable) {
+  width: 100%;
+  max-width: 860px;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  margin: 0 auto;
+}
+
+/* Header */
+.adminreg > center > table:not(.regtable) thead tr {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.adminreg > center > table:not(.regtable) thead th {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.9rem 1.25rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Body rows */
+.adminreg > center > table:not(.regtable) tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s ease;
+}
+
+.adminreg > center > table:not(.regtable) tbody tr:last-child {
+  border-bottom: none;
+}
+
+.adminreg > center > table:not(.regtable) tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.adminreg > center > table:not(.regtable) tbody td {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text);
+  padding: 0.85rem 1.25rem;
+  vertical-align: middle;
+}
+
+/* SI NO column */
+.adminreg > center > table:not(.regtable) tbody td:first-child {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ─── Action Buttons (Delete / Edit) ─────────────────────── */
+.adminreg > center > table:not(.regtable) tbody td:last-child {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.adminreg > center > table:not(.regtable) tbody td button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.775rem;
+  font-weight: 500;
+  padding: 0.38rem 0.85rem;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease,
+              box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+/* Delete */
+.adminreg > center > table:not(.regtable) tbody td button:first-child {
+  background: var(--danger-dim);
+  color: var(--danger);
+  border-color: rgba(255,95,95,0.2);
+}
+.adminreg > center > table:not(.regtable) tbody td button:first-child:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+  box-shadow: 0 3px 14px var(--danger-glow);
+  transform: translateY(-1px);
+}
+
+/* Edit */
+.adminreg > center > table:not(.regtable) tbody td button:last-child {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-color: rgba(245,197,24,0.2);
+}
+.adminreg > center > table:not(.regtable) tbody td button:last-child:hover {
+  background: var(--accent);
+  color: #0a0a0f;
+  border-color: var(--accent);
+  box-shadow: 0 3px 14px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .adminreg { padding: 1.5rem 0.75rem; }
+
+  .regtable tbody tr:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .regtable tbody tr:nth-child(2) td {
+    padding: 0 !important;
+    width: 100%;
+  }
+
+  .adminreg > center > table:not(.regtable) {
+    display: block;
+    overflow-x: auto;
+  }
+}

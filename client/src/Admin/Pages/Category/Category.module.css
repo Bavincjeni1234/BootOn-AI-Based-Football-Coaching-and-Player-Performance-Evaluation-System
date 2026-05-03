@@ -1,0 +1,343 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables ──────────────────────────────────────────── */
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-2:     #16161f;
+  --surface-3:     #1c1c27;
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-focus:  rgba(245, 197, 24, 0.55);
+  --accent:        #f5c518;
+  --accent-dark:   #c9a010;
+  --accent-glow:   rgba(245, 197, 24, 0.22);
+  --accent-dim:    rgba(245, 197, 24, 0.08);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.42);
+  --danger:        #ff5f5f;
+  --danger-dim:    rgba(255, 95, 95, 0.1);
+  --danger-glow:   rgba(255, 95, 95, 0.2);
+}
+
+/* ─── Page Wrapper ───────────────────────────────────────── */
+.categoryPage {
+  padding: 2.5rem 2rem 4rem;
+  min-height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  max-width: 100%;
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── FORM TABLE ─────────────────────────────────────────── */
+.formTable {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 8px 32px rgba(0,0,0,0.45);
+  animation: cardUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ── Title row ── */
+.formTable thead tr td {
+  padding: 1.75rem 2rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.formTable thead tr td h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+}
+
+.formTable thead tr td h2::after {
+  content: ' ⚡';
+  font-size: 1.1rem;
+}
+
+/* ── Label cell ── */
+.formTable tbody tr:first-child td:first-child {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 1.1rem 1rem 1.1rem 2rem;
+  width: 30%;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Input cell ── */
+.formTable tbody tr:first-child td:last-child {
+  padding: 0.75rem 2rem 0.75rem 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Input ── */
+.formTable input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0.65rem 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.formTable input::placeholder { color: rgba(240,239,245,0.2); }
+
+.formTable input:hover { border-color: rgba(255,255,255,0.13); }
+
+.formTable input:focus {
+  border-color: var(--border-focus);
+  background: #13131c;
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.08);
+}
+
+.formTable input:-webkit-autofill,
+.formTable input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface-2) inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+}
+
+/* ── Button row ── */
+.formTable tbody tr:last-child td {
+  padding: 1rem 2rem 1.6rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+/* ── Save / Update — gold CTA ── */
+.formTable button:first-child {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #0a0a0f;
+  background: var(--accent);
+  border: none;
+  border-radius: 9px;
+  padding: 0.65rem 1.6rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 0 var(--accent-dark), 0 4px 18px var(--accent-glow);
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.formTable button:first-child::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.28), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+}
+
+.formTable button:first-child:hover::before { left: 130%; }
+
+.formTable button:first-child:hover {
+  background: #ffd13a;
+  box-shadow: 0 2px 0 var(--accent-dark), 0 6px 22px rgba(245,197,24,0.38);
+  transform: translateY(-2px);
+}
+
+.formTable button:first-child:active { transform: translateY(0); }
+
+/* ── Cancel — ghost ── */
+.formTable button:last-child:not(:first-child) {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0.65rem 1.4rem;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.formTable button:last-child:not(:first-child):hover {
+  color: var(--text);
+  background: var(--surface-2);
+  border-color: rgba(255,255,255,0.13);
+}
+
+/* ─── DATA TABLE ─────────────────────────────────────────── */
+.dataTable {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 4px 24px rgba(0,0,0,0.4);
+  animation: cardUp 0.5s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Header ── */
+.dataTable thead tr {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.dataTable thead th {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.9rem 1.25rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* ── Body rows ── */
+.dataTable tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s ease;
+  animation: rowFade 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dataTable tbody tr:last-child { border-bottom: none; }
+
+.dataTable tbody tr:hover { background: var(--surface-2); }
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.dataTable tbody td {
+  font-size: 0.875rem;
+  color: var(--text);
+  padding: 0.85rem 1.25rem;
+  vertical-align: middle;
+}
+
+/* SI NO */
+.dataTable tbody td:first-child {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  width: 60px;
+}
+
+/* Category name */
+.dataTable tbody td:nth-child(2) {
+  font-weight: 400;
+}
+
+/* Action cell */
+.dataTable tbody td:last-child {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ── Edit button ── */
+.dataTable tbody td button:not(.deleteBtn) {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.775rem;
+  font-weight: 500;
+  padding: 0.38rem 0.85rem;
+  border-radius: 7px;
+  border: 1px solid rgba(245, 197, 24, 0.2);
+  background: var(--accent-dim);
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease,
+              box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.dataTable tbody td button:not(.deleteBtn):hover {
+  background: var(--accent);
+  color: #0a0a0f;
+  border-color: var(--accent);
+  box-shadow: 0 3px 14px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+/* ── Delete button ── */
+.deleteBtn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.775rem;
+  font-weight: 500;
+  padding: 0.38rem 0.85rem;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 95, 95, 0.2);
+  background: var(--danger-dim);
+  color: var(--danger);
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease,
+              box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.deleteBtn:hover {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+  box-shadow: 0 3px 14px var(--danger-glow);
+  transform: translateY(-1px);
+}
+
+.deleteBtn:active,
+.dataTable tbody td button:not(.deleteBtn):active {
+  transform: translateY(0);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .categoryPage { padding: 1.5rem 0.75rem; }
+
+  .formTable thead tr td { padding: 1.4rem 1.25rem 1rem; }
+
+  .formTable tbody tr:first-child td:first-child,
+  .formTable tbody tr:first-child td:last-child {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .formTable tbody tr:last-child td { padding: 0.9rem 1.25rem 1.4rem; }
+
+  .dataTable { display: block; overflow-x: auto; }
+}

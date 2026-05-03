@@ -1,0 +1,433 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-2:     #16161f;
+  --surface-3:     #1c1c27;
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-focus:  rgba(245, 197, 24, 0.45);
+  --accent:        #f5c518;
+  --accent-dark:   #c9a010;
+  --accent-glow:   rgba(245, 197, 24, 0.22);
+  --accent-dim:    rgba(245, 197, 24, 0.08);
+  --accent-border: rgba(245, 197, 24, 0.22);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.42);
+  --danger:        #ff5f5f;
+  --danger-dim:    rgba(255, 95, 95, 0.08);
+  --danger-border: rgba(255, 95, 95, 0.22);
+  --danger-glow:   rgba(255, 95, 95, 0.2);
+}
+
+/* ── Page ────────────────────────────────────────────────── */
+.formContainer {
+  padding: 2.5rem 2rem 5rem;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Registration Card ───────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 10px 40px rgba(0,0,0,0.5);
+  animation: cardUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* gold top strip */
+.card::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(245,197,24,0.1) 60%, transparent 100%);
+}
+
+/* ── Card Header ─────────────────────────────────────────── */
+.cardHeader {
+  padding: 1.5rem 2rem 1.25rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.eyebrow {
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.75;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 14px; height: 1px;
+  background: var(--accent);
+}
+
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ── Card Body ───────────────────────────────────────────── */
+.cardBody {
+  padding: 1.75rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ── Field Grid ──────────────────────────────────────────── */
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ── Field ───────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.field label {
+  font-size: 0.71rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.field:focus-within label { color: var(--accent); }
+
+/* ── Inputs ──────────────────────────────────────────────── */
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="tel"],
+.field input[type="number"],
+.field select {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.72rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field input[type="password"] { letter-spacing: 0.1em; }
+.field input::placeholder      { color: rgba(240,239,245,0.15); letter-spacing: 0; }
+.field input:hover,
+.field select:hover            { border-color: rgba(255,255,255,0.12); }
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--border-focus);
+  background: #13131c;
+  box-shadow: 0 0 0 3px rgba(245,197,24,0.08);
+}
+
+.field input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface-2) inset;
+  -webkit-text-fill-color: var(--text);
+}
+
+/* custom select arrow */
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f5c518' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.field select option { background: #13131d; color: var(--text); }
+
+/* ── File inputs ─────────────────────────────────────────── */
+.field input[type="file"] {
+  border: 1px dashed rgba(245,197,24,0.2);
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.field input[type="file"]:hover {
+  border-color: rgba(245,197,24,0.4);
+  background: rgba(245,197,24,0.03);
+}
+
+.field input[type="file"]::-webkit-file-upload-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  padding: 0.28rem 0.75rem;
+  cursor: pointer;
+  margin-right: 0.75rem;
+  transition: background 0.18s ease;
+}
+
+.field input[type="file"]::-webkit-file-upload-button:hover {
+  background: rgba(245,197,24,0.15);
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+  margin: 0.25rem 0;
+}
+
+/* ── Form Actions ────────────────────────────────────────── */
+.formActions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* ── Submit Button ───────────────────────────────────────── */
+.submitBtn {
+  flex: 1;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #0a0800;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  padding: 0.82rem 1.5rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.22) inset,
+    0 -1px 0 var(--accent-dark) inset,
+    0 4px 20px var(--accent-glow);
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.submitBtn::after {
+  content: '→';
+  font-size: 1rem;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.submitBtn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.48s ease;
+}
+
+.submitBtn:hover::before { left: 130%; }
+.submitBtn:hover {
+  background: #fde047;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.28) inset,
+    0 -1px 0 var(--accent-dark) inset,
+    0 6px 26px rgba(245,197,24,0.4);
+  transform: translateY(-2px);
+}
+.submitBtn:hover::after  { transform: translateX(5px); }
+.submitBtn:active        { transform: translateY(0); }
+
+/* ── Cancel Button ───────────────────────────────────────── */
+.cancelBtn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.82rem 1.5rem;
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.cancelBtn:hover {
+  color: var(--text);
+  background: var(--surface-2);
+  border-color: rgba(255,255,255,0.13);
+}
+
+/* ── Table Wrapper ───────────────────────────────────────── */
+.tableWrapper {
+  width: 100%;
+  max-width: 960px;
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 8px 32px rgba(0,0,0,0.45);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245,197,24,0.2) transparent;
+  animation: cardUp 0.5s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Data Table ──────────────────────────────────────────── */
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+}
+
+.dataTable thead tr { background: var(--surface-2); }
+
+.dataTable thead th {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.dataTable tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s ease;
+  animation: rowFade 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dataTable tbody tr:nth-child(1) { animation-delay: 0.05s; }
+.dataTable tbody tr:nth-child(2) { animation-delay: 0.10s; }
+.dataTable tbody tr:nth-child(3) { animation-delay: 0.15s; }
+.dataTable tbody tr:nth-child(4) { animation-delay: 0.20s; }
+.dataTable tbody tr:nth-child(5) { animation-delay: 0.25s; }
+
+.dataTable tbody tr:last-child { border-bottom: none; }
+.dataTable tbody tr:hover      { background: var(--surface-2); }
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.dataTable tbody td {
+  font-size: 0.875rem;
+  color: var(--text);
+  padding: 0.95rem 1.25rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.dataTable tbody td:first-child { color: var(--muted); font-size: 0.8rem; width: 55px; }
+
+/* ── Action Cell ─────────────────────────────────────────── */
+.actionCell {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ── Delete Button ───────────────────────────────────────── */
+.deleteBtn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.35rem 0.85rem;
+  border-radius: 7px;
+  border: 1px solid var(--danger-border);
+  background: var(--danger-dim);
+  color: var(--danger);
+  cursor: pointer;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.deleteBtn:hover {
+  background: var(--danger);
+  color: #fff;
+  box-shadow: 0 3px 12px var(--danger-glow);
+  transform: translateY(-1px);
+}
+
+/* ── Edit Button ─────────────────────────────────────────── */
+.editBtn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.35rem 0.85rem;
+  border-radius: 7px;
+  border: 1px solid var(--accent-border);
+  background: var(--accent-dim);
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.editBtn:hover {
+  background: var(--accent);
+  color: #0a0800;
+  box-shadow: 0 3px 12px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 580px) {
+  .formContainer { padding: 1.5rem 0.75rem; }
+  .fieldGrid     { grid-template-columns: 1fr; }
+  .cardBody      { padding: 1.25rem; }
+  .cardHeader    { padding: 1.25rem; }
+  .formActions   { flex-direction: column; }
+  .cancelBtn     { text-align: center; }
+}
