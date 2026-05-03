@@ -1,0 +1,342 @@
+/* ═══════════════════════════════════════════════
+   AcceptedPlayers.module.css  —  Coach panel
+   Teal accent  |  BootOn Design System
+═══════════════════════════════════════════════ */
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* ── Page wrapper ── */
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  overflow-y: auto;
+  gap: 1.5rem;
+}
+
+/* ── Page title ── */
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+  align-self: flex-start;
+}
+
+.title::after {
+  content: ' ⚡';
+}
+
+/* ── Table wrapper ── */
+.tableWrapper {
+  width: 100%;
+  max-width: 1380px;
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  animation: cardUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Teal top strip */
+.tableWrapper::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--coach), var(--coach-dark));
+  border-radius: 18px 18px 0 0;
+  pointer-events: none;
+}
+
+/* ── Table ── */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+/* ── Table head ── */
+.table thead tr {
+  background: var(--surface-2);
+}
+
+.table thead th {
+  padding: 1rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.table thead th:first-child { padding-left: 1.5rem; }
+.table thead th:last-child  { padding-right: 1.5rem; }
+
+/* ── Table body rows ── */
+.table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s ease;
+  animation: rowIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 0;
+}
+
+.table tbody tr:last-child { border-bottom: none; }
+.table tbody tr:hover      { background: var(--surface-2); }
+
+/* Row stagger */
+.table tbody tr:nth-child(1)  { animation-delay: 0.05s; }
+.table tbody tr:nth-child(2)  { animation-delay: 0.10s; }
+.table tbody tr:nth-child(3)  { animation-delay: 0.15s; }
+.table tbody tr:nth-child(4)  { animation-delay: 0.20s; }
+.table tbody tr:nth-child(5)  { animation-delay: 0.25s; }
+.table tbody tr:nth-child(6)  { animation-delay: 0.30s; }
+.table tbody tr:nth-child(7)  { animation-delay: 0.35s; }
+.table tbody tr:nth-child(8)  { animation-delay: 0.40s; }
+.table tbody tr:nth-child(9)  { animation-delay: 0.45s; }
+.table tbody tr:nth-child(10) { animation-delay: 0.50s; }
+
+/* ── Table cells ── */
+.table tbody td {
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-weight: 300;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.table tbody td:first-child {
+  padding-left: 1.5rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.table tbody td:last-child { padding-right: 1.5rem; }
+
+/* Empty state */
+.table tbody tr td[colspan] {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── Status cell ── */
+.statusCell {
+  text-align: center;
+}
+
+/* ── Status badges ── */
+.completed,
+.review,
+.pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Completed — green */
+.completed {
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--player);
+  border: 1px solid rgba(74, 222, 128, 0.22);
+}
+
+.completed::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--player);
+  flex-shrink: 0;
+}
+
+/* Pending Review — gold */
+.review {
+  background: rgba(245, 197, 24, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(245, 197, 24, 0.22);
+}
+
+.review::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* Pending — muted */
+.pending {
+  background: rgba(240, 239, 245, 0.06);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.pending::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Shared button base ── */
+.trainingBtn,
+.chatBtn,
+.approveBtn,
+.viewBtn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow  0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity     0.2s ease;
+}
+
+/* Shimmer sweep — all buttons */
+.trainingBtn::before,
+.chatBtn::before,
+.approveBtn::before,
+.viewBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+}
+
+.trainingBtn:hover::before,
+.chatBtn:hover::before,
+.approveBtn:hover::before,
+.viewBtn:hover::before {
+  left: 130%;
+}
+
+.trainingBtn:hover,
+.chatBtn:hover,
+.approveBtn:hover,
+.viewBtn:hover {
+  transform: translateY(-2px);
+}
+
+.trainingBtn:active,
+.chatBtn:active,
+.approveBtn:active,
+.viewBtn:active {
+  transform: translateY(0);
+  opacity: 0.85;
+}
+
+/* Training + Attributes — teal solid */
+.trainingBtn {
+  padding: 0.38rem 0.85rem;
+  background: var(--coach);
+  color: #0a0a0f;
+  box-shadow: 0 2px 0 var(--coach-dark);
+}
+
+.trainingBtn:hover {
+  box-shadow: 0 4px 16px var(--coach-glow), 0 2px 0 var(--coach-dark);
+}
+
+/* Chat — ghost teal */
+.chatBtn {
+  padding: 0.38rem 0.85rem;
+  background: transparent;
+  color: var(--coach);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.chatBtn:hover {
+  background: rgba(56, 189, 248, 0.08);
+  border-color: var(--coach);
+}
+
+/* ── Action cell ── */
+.actionCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.85rem;
+}
+
+/* View — ghost gold link-style */
+.viewBtn {
+  padding: 0.38rem 0.85rem;
+  background: rgba(245, 197, 24, 0.08);
+  color: var(--accent);
+  border: 1px solid rgba(245, 197, 24, 0.25);
+}
+
+.viewBtn:hover {
+  background: rgba(245, 197, 24, 0.15);
+  border-color: var(--accent);
+}
+
+/* Approve — green solid */
+.approveBtn {
+  padding: 0.38rem 0.85rem;
+  background: var(--player);
+  color: #0a0a0f;
+  box-shadow: 0 2px 0 var(--player-dark);
+}
+
+.approveBtn:hover {
+  box-shadow: 0 4px 16px var(--player-glow), 0 2px 0 var(--player-dark);
+}

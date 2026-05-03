@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg:           #0a0a0f;
+  --surface:      #111118;
+  --surface-2:    #16161f;
+  --border:       rgba(255, 255, 255, 0.07);
+  --text:         #f0eff5;
+  --muted:        rgba(240, 239, 245, 0.42);
+  --coach:        #38bdf8;
+  --coach-dim:    rgba(56, 189, 248, 0.08);
+  --coach-glow:   rgba(56, 189, 248, 0.25);
+  --coach-border: rgba(56, 189, 248, 0.25);
+}
+
+/* ── Page ────────────────────────────────────────────────── */
+.container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  overflow-y: auto;
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 10px 40px rgba(0,0,0,0.55);
+  animation: cardUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* teal top strip */
+.card::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--coach) 0%, rgba(56,189,248,0.1) 60%, transparent 100%);
+}
+
+/* ── Card Header with avatar ─────────────────────────────── */
+.card h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+/* teal avatar circle */
+.card h2::before {
+  content: '';
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+  box-shadow:
+    0 0 0 4px var(--surface-2),
+    0 0 0 6px var(--coach-border),
+    0 0 22px var(--coach-glow);
+  display: block;
+  flex-shrink: 0;
+}
+
+/* online badge */
+.card h2::after {
+  content: '● Online';
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--coach);
+  background: var(--coach-dim);
+  border: 1px solid var(--coach-border);
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+}
+
+/* ── Profile Fields ──────────────────────────────────────── */
+.field {
+  display: flex;
+  align-items: center;
+  padding: 1.05rem 2rem;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  transition: background 0.15s ease;
+}
+
+.field:hover { background: var(--surface-2); }
+
+.field label {
+  font-size: 0.71rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  min-width: 88px;
+  flex-shrink: 0;
+}
+
+.field input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: default;
+  padding: 0;
+}
+
+/* stagger entrance */
+.field:nth-child(2) { animation: rowFade 0.3s 0.18s both; }
+.field:nth-child(3) { animation: rowFade 0.3s 0.24s both; }
+.field:nth-child(4) { animation: rowFade 0.3s 0.30s both; }
+.field:nth-child(5) { animation: rowFade 0.3s 0.36s both; }
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .container { padding: 1.25rem; }
+  .field     { padding: 0.9rem 1.25rem; }
+}

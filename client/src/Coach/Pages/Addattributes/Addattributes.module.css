@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-2:     #16161f;
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-focus:  rgba(56, 189, 248, 0.45);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.42);
+  --coach:         #38bdf8;
+  --coach-dim:     rgba(56, 189, 248, 0.08);
+  --coach-mid:     rgba(56, 189, 248, 0.15);
+  --coach-glow:    rgba(56, 189, 248, 0.25);
+  --coach-border:  rgba(56, 189, 248, 0.25);
+  --coach-dark:    #0284c7;
+}
+
+/* ── Page ────────────────────────────────────────────────── */
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  overflow-y: auto;
+
+  /* ✅ FIX: removed background override */
+  /* optional overlay for better look */
+  background: rgba(10, 10, 15, 0.6);
+  backdrop-filter: blur(4px);
+
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 580px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 10px 40px rgba(0,0,0,0.55);
+  animation: cardUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* teal top strip */
+.card::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--coach) 0%, rgba(56,189,248,0.1) 60%, transparent 100%);
+}
+
+/* ── Card Header ─────────────────────────────────────────── */
+.cardHeader {
+  padding: 1.5rem 2rem 1.25rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.eyebrow {
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--coach);
+  opacity: 0.75;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 14px; height: 1px;
+  background: var(--coach);
+}
+
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+}
+
+/* ── Form body ───────────────────────────────────────────── */
+.form {
+  padding: 1.75rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Grid ───────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Field ──────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  animation: fieldIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fieldIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.field label {
+  font-size: 0.69rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: capitalize;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.field label span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--coach);
+}
+
+/* ── Input ──────────────────────────────────────────────── */
+.field input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  color: var(--text);
+}
+
+/* ── Submit ─────────────────────────────────────────────── */
+.submitBtn {
+  width: 100%;
+  background: var(--coach);
+  border: none;
+  border-radius: 10px;
+  padding: 0.85rem;
+  cursor: pointer;
+}
