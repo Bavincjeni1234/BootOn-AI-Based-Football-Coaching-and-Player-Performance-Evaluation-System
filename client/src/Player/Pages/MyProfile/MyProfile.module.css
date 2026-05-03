@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-2:     #16161f;
+  --border:        rgba(255, 255, 255, 0.07);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.42);
+  --player:        #4ade80;
+  --player-dim:    rgba(74, 222, 128, 0.08);
+  --player-glow:   rgba(74, 222, 128, 0.25);
+  --player-border: rgba(74, 222, 128, 0.25);
+  --player-dark:   #16a34a;
+}
+
+/* ── Outer wrapper fills entire content area ── */
+.myProfile {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Card ── */
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 10px 40px rgba(0,0,0,0.6);
+  animation: cardUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* green top strip */
+.card::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--player) 0%, rgba(74,222,128,0.1) 60%, transparent 100%);
+}
+
+/* ── Card Header ── */
+.card h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+/* Avatar circle */
+.card h2::before {
+  content: '';
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+  box-shadow:
+    0 0 0 4px var(--surface-2),
+    0 0 0 6px rgba(74,222,128,0.3),
+    0 0 24px rgba(74,222,128,0.25);
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Online badge */
+.card h2::after {
+  content: '● Online';
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--player);
+  background: var(--player-dim);
+  border: 1px solid var(--player-border);
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+}
+
+/* ── Profile Rows ── */
+.profileField {
+  display: flex;
+  align-items: center;
+  padding: 1.05rem 2rem;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  transition: background 0.15s ease;
+}
+
+.profileField:hover { background: var(--surface-2); }
+
+.profileField label {
+  font-size: 0.71rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  min-width: 62px;
+  flex-shrink: 0;
+}
+
+.profileField input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: default;
+  padding: 0;
+}
+
+.profileField input[type="number"]::-webkit-inner-spin-button,
+.profileField input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.profileField:nth-child(2) { animation: rowFade 0.3s 0.18s both; }
+.profileField:nth-child(3) { animation: rowFade 0.3s 0.25s both; }
+.profileField:nth-child(4) { animation: rowFade 0.3s 0.32s both; }
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Edit Button ── */
+.editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: calc(100% - 4rem);
+  margin: 1.25rem 2rem 1.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #050f07;
+  background: var(--player);
+  border: none;
+  border-radius: 10px;
+  padding: 0.78rem 1.5rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 0 var(--player-dark), 0 4px 18px var(--player-glow);
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.editBtn::after {
+  content: '✎';
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.editBtn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+}
+
+.editBtn:hover::before { left: 130%; }
+.editBtn:hover {
+  background: #86efac;
+  box-shadow: 0 2px 0 var(--player-dark), 0 6px 24px rgba(74,222,128,0.38);
+  transform: translateY(-2px);
+}
+.editBtn:hover::after { transform: rotate(-15deg) scale(1.1); }
+.editBtn:active { transform: translateY(0); }
+
+@media (max-width: 480px) {
+  .profileField { padding: 0.9rem 1.25rem; }
+  .editBtn { width: calc(100% - 2.5rem); margin: 1rem 1.25rem 1.4rem; }
+}

@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-2:     #16161f;
+  --surface-3:     #1c1c27;
+  --border:        rgba(255, 255, 255, 0.07);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.42);
+  --player:        #4ade80;
+  --player-dim:    rgba(74, 222, 128, 0.07);
+  --player-mid:    rgba(74, 222, 128, 0.13);
+  --player-glow:   rgba(74, 222, 128, 0.22);
+  --player-border: rgba(74, 222, 128, 0.2);
+  --player-dark:   #16a34a;
+}
+
+/* ── Page ────────────────────────────────────────────────── */
+.notificationPage {
+  padding: 2.75rem 2.5rem 5rem;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header row ─────────────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  max-width: 720px;
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Title ───────────────────────────────────────────────── */
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* animated bell */
+.title::before {
+  content: '🔔';
+  font-size: 1.5rem;
+  display: inline-block;
+  animation: bellShake 5s ease-in-out infinite;
+}
+
+@keyframes bellShake {
+  0%, 80%, 100% { transform: rotate(0deg) scale(1); }
+  83%           { transform: rotate(14deg) scale(1.1); }
+  87%           { transform: rotate(-12deg) scale(1.1); }
+  91%           { transform: rotate(8deg); }
+  95%           { transform: rotate(-4deg); }
+}
+
+.title span {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+/* ── Count badge ─────────────────────────────────────────── */
+.countBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--player);
+  background: var(--player-dim);
+  border: 1px solid var(--player-border);
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.countBadge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--player);
+  box-shadow: 0 0 6px var(--player-glow);
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ── Notification Feed ───────────────────────────────────── */
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 720px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.02),
+    0 8px 32px rgba(0,0,0,0.45);
+  animation: cardUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* green top strip */
+.notificationList::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--player) 0%, rgba(74,222,128,0.1) 60%, transparent 100%);
+  flex-shrink: 0;
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Single Row ──────────────────────────────────────────── */
+.notificationCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: background 0.15s ease, transform 0.18s ease;
+
+  animation: rowFade 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.notificationCard:last-child { border-bottom: none; }
+
+/* stagger */
+.notificationCard:nth-child(1) { animation-delay: 0.06s; }
+.notificationCard:nth-child(2) { animation-delay: 0.12s; }
+.notificationCard:nth-child(3) { animation-delay: 0.18s; }
+.notificationCard:nth-child(4) { animation-delay: 0.24s; }
+.notificationCard:nth-child(5) { animation-delay: 0.30s; }
+.notificationCard:nth-child(6) { animation-delay: 0.36s; }
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* left accent bar */
+.notificationCard::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 15%; bottom: 15%;
+  width: 3px;
+  background: var(--player);
+  border-radius: 0 3px 3px 0;
+  opacity: 0;
+  transform: scaleY(0);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* hover glow sweep */
+.notificationCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 100% at 0% 50%, rgba(74,222,128,0.05) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.notificationCard:hover {
+  background: var(--surface-2);
+  transform: translateX(3px);
+}
+
+.notificationCard:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.notificationCard:hover::after { opacity: 1; }
+
+/* ── Icon Box ────────────────────────────────────────────── */
+.notifIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--player-dim);
+  border: 1px solid var(--player-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(74,222,128,0.08);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.notificationCard:hover .notifIcon {
+  background: var(--player-mid);
+  box-shadow: 0 0 14px rgba(74,222,128,0.18);
+}
+
+/* ── Text Content ────────────────────────────────────────── */
+.notifText {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* ── Index number ────────────────────────────────────────── */
+.notifIndex {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--muted);
+  min-width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Empty State ─────────────────────────────────────────── */
+.noNotification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 720px;
+  padding: 5rem 2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-style: italic;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  animation: cardUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.noNotification::before {
+  content: '🔕';
+  font-size: 3rem;
+  opacity: 0.25;
+  font-style: normal;
+  display: block;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .notificationPage { padding: 1.5rem 0.75rem; }
+  .title            { font-size: 1.6rem; }
+  .pageHeader       { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .notificationCard { padding: 1rem 1.25rem; }
+}

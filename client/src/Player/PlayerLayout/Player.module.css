@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables ──────────────────────────────────────────── */
+:root {
+  --bg:          #0a0a0f;
+  --surface:     #111118;
+  --border:      rgba(255, 255, 255, 0.06);
+  --accent:      #f5c518;
+  --player:      #4ade80;
+  --player-glow: rgba(74, 222, 128, 0.07);
+  --text:        #f0eff5;
+  --sidebar-w:   240px;
+  --nav-h:       68px;
+}
+
+/* ─── Root Grid ──────────────────────────────────────────── */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+}
+
+/* ─── Background Image ───────────────────────────────────── */
+.layout::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background-image:url("../../assets/dybala.jpg");
+  background-size:cover;
+  background-position:center;
+
+  opacity:1.28;
+  filter:brightness(1.45) blur(1px);
+
+  z-index:-2;
+}
+
+/* dark overlay */
+.layout::after{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:linear-gradient(
+      to bottom,
+      rgba(10,10,15,0.3),
+      rgba(10,10,15,0.95)
+  );
+
+  z-index:-1;
+}
+
+/* ─── Sidebar Slot ───────────────────────────────────────── */
+.layout > :first-child {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 900;
+  flex-shrink: 0;
+}
+
+/* ─── Main Column ────────────────────────────────────────── */
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+  border-left: 1px solid var(--border);
+}
+
+/* ─── Content Slot ───────────────────────────────────────── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(74, 222, 128, 0.2) transparent;
+
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.content::-webkit-scrollbar { width: 5px; }
+.content::-webkit-scrollbar-track { background: transparent; }
+.content::-webkit-scrollbar-thumb {
+  background: rgba(74, 222, 128, 0.2);
+  border-radius: 10px;
+}
+.content::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 222, 128, 0.4);
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .layout > :first-child {
+    position: relative;
+    height: auto;
+  }
+
+  .main {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+}

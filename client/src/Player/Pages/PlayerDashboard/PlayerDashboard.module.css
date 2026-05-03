@@ -1,0 +1,188 @@
+/* ============================================================
+   PlayerDashboard.module.css — BootOn Player Panel
+   Accent: --player (green #4ade80)
+   Layout: matches Admin/Coach dashboard exactly
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── Page wrapper — top-left aligned like Admin/Coach ── */
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2.5rem 2.5rem;
+  gap: 1.75rem;
+  overflow-y: auto;
+}
+
+/* ── Eyebrow label above title ── */
+.eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.3rem 0;
+}
+
+/* ── Title ── */
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.title::after {
+  content: ' ⚡';
+}
+
+/* ── Cards row ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 220px);
+  gap: 1.25rem;
+}
+
+/* ── Individual card ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.5rem 1.6rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.22s ease;
+  animation: cardUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Green top strip */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--player), var(--player-dark));
+  border-radius: 20px 20px 0 0;
+}
+
+/* Corner glow */
+.card::after {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 130px; height: 130px;
+  background: radial-gradient(circle, var(--player-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.12s; }
+.card:nth-child(3) { animation-delay: 0.19s; }
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(74, 222, 128, 0.25);
+}
+
+/* ── Pending card (3rd) — gold override ── */
+.card:nth-child(3)::before {
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+}
+
+.card:nth-child(3)::after {
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+}
+
+.card:nth-child(3):hover {
+  border-color: rgba(245, 197, 24, 0.25);
+}
+
+/* ── Icon wrap ── */
+.iconWrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.iconWrapGold {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(245, 197, 24, 0.1);
+  border: 1px solid rgba(245, 197, 24, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+/* ── h4 label ── */
+.card h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── h2 big number ── */
+.card h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2.4rem;
+  color: var(--player);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+}
+
+/* Pending number — gold */
+.card:nth-child(3) h2 {
+  color: var(--accent);
+}
+
+/* ── Animation ── */
+@keyframes cardUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}

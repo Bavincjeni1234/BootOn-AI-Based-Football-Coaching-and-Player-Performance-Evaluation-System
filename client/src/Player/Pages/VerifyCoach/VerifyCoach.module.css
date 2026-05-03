@@ -1,0 +1,341 @@
+/* ═══════════════════════════════════════════════
+   VerifyCoach.module.css  —  Player panel
+   Green accent  |  BootOn Design System
+═══════════════════════════════════════════════ */
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+@keyframes shimmer {
+  0% { left: -75%; }
+  100% { left: 130%; }
+}
+
+/* ── Page wrapper ── */
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  overflow-y: auto;
+  gap: 1.5rem;
+}
+
+/* ── Page title ── */
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+  align-self: flex-start;
+}
+
+.title::after {
+  content: ' 🎯';
+}
+
+/* ── Table wrapper ── */
+.tableWrapper {
+  width: 100%;
+  max-width: 1380px;
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  animation: cardUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Green top strip */
+.tableWrapper::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--player), var(--player-dark));
+  border-radius: 18px 18px 0 0;
+  pointer-events: none;
+}
+
+/* ── Table ── */
+.coachTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+/* ── Table head ── */
+.coachTable thead tr {
+  background: var(--surface-2);
+}
+
+.coachTable thead th {
+  padding: 1rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.coachTable thead th:first-child { padding-left: 1.5rem; }
+.coachTable thead th:last-child  { padding-right: 1.5rem; }
+
+/* ── Table body rows ── */
+.coachTable tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s ease;
+  animation: rowIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 0;
+}
+
+.coachTable tbody tr:last-child { border-bottom: none; }
+.coachTable tbody tr:hover      { background: var(--surface-2); }
+
+/* Row stagger */
+.coachTable tbody tr:nth-child(1)  { animation-delay: 0.05s; }
+.coachTable tbody tr:nth-child(2)  { animation-delay: 0.10s; }
+.coachTable tbody tr:nth-child(3)  { animation-delay: 0.15s; }
+.coachTable tbody tr:nth-child(4)  { animation-delay: 0.20s; }
+.coachTable tbody tr:nth-child(5)  { animation-delay: 0.25s; }
+.coachTable tbody tr:nth-child(6)  { animation-delay: 0.30s; }
+.coachTable tbody tr:nth-child(7)  { animation-delay: 0.35s; }
+.coachTable tbody tr:nth-child(8)  { animation-delay: 0.40s; }
+.coachTable tbody tr:nth-child(9)  { animation-delay: 0.45s; }
+.coachTable tbody tr:nth-child(10) { animation-delay: 0.50s; }
+
+/* ── Table cells ── */
+.coachTable tbody td {
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-weight: 300;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.coachTable tbody td:first-child {
+  padding-left: 1.5rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.coachTable tbody td:last-child { padding-right: 1.5rem; }
+
+/* Empty state */
+.coachTable tbody tr td[colspan] {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── Rating badge ── */
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(245, 197, 24, 0.12);
+  color: var(--accent);
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ── Request button (Green solid — primary action) ── */
+.requestBtn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.38rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--player);
+  color: #0a0a0f;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.2s ease;
+  box-shadow: 0 2px 0 var(--player-dark);
+}
+
+/* Shimmer sweep */
+.requestBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+}
+
+.requestBtn:hover::before {
+  left: 130%;
+}
+
+.requestBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px var(--player-glow), 0 2px 0 var(--player-dark);
+}
+
+.requestBtn:active {
+  transform: translateY(0);
+  opacity: 0.85;
+}
+
+/* ── Status badges ── */
+.pending,
+.accepted,
+.rejected {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Pending — gold pulse */
+.pending {
+  background: rgba(245, 197, 24, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(245, 197, 24, 0.22);
+}
+
+.pending::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* Accepted — green */
+.accepted {
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--player);
+  border: 1px solid rgba(74, 222, 128, 0.22);
+}
+
+.accepted::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--player);
+  flex-shrink: 0;
+}
+
+/* Rejected — muted/red */
+.rejected {
+  background: rgba(239, 68, 68, 0.08);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.rejected::before {
+  content: '✕';
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-right: 0.2rem;
+}
+
+/* ── Responsive adjustments ── */
+@media (max-width: 768px) {
+  .page {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .coachTable tbody td,
+  .coachTable thead th {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .coachTable tbody td:first-child {
+    padding-left: 1rem;
+  }
+
+  .coachTable tbody td:last-child {
+    padding-right: 1rem;
+  }
+
+  .requestBtn,
+  .pending,
+  .accepted,
+  .rejected {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .rating {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Optional: Add scrollbar styling */
+.tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: var(--surface-2);
+  border-radius: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}

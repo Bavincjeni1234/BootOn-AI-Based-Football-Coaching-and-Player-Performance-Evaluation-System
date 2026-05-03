@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables ──────────────────────────────────────────── */
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-hover: #16161f;
+  --border:        rgba(255, 255, 255, 0.06);
+  --accent:        #f5c518;
+  --accent-glow:   rgba(245, 197, 24, 0.22);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.40);
+
+  --player:        #4ade80;
+  --player-dim:    rgba(74, 222, 128, 0.08);
+  --player-glow:   rgba(74, 222, 128, 0.2);
+  --player-border: rgba(74, 222, 128, 0.2);
+
+  --sidebar-w:     240px;
+}
+
+/* ─── Sidebar Shell ──────────────────────────────────────── */
+.userside {
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.85rem 2rem;
+
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.45);
+
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  animation: slideInLeft 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.userside::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── Brand removed ─────────────────────────────────────── */
+.brand,
+.brand::before,
+.brand::after {
+  display: none !important;
+}
+
+/* ─── Menu ──────────────────────────────────────────────── */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 1.25rem;
+}
+
+/* ─── Links ─────────────────────────────────────────────── */
+.menu a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.7rem 1rem;
+
+  border-radius: 10px;
+  border: 1px solid transparent;
+
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+
+  color: var(--muted);
+  text-decoration: none;
+
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    color        0.2s ease,
+    background   0.2s ease,
+    border-color 0.2s ease,
+    transform    0.18s ease;
+}
+
+/* left accent bar */
+.menu a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18%;
+  height: 64%;
+  width: 3px;
+  background: var(--player);
+  border-radius: 0 3px 3px 0;
+  opacity: 0;
+  transform: scaleY(0);
+  transition:
+    opacity   0.2s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* arrow indicator */
+.menu a::after {
+  content: '›';
+  position: absolute;
+  right: 0.9rem;
+  font-size: 1.1rem;
+  color: var(--player);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity   0.2s ease,
+    transform 0.2s ease;
+}
+
+/* hover */
+.menu a:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+  border-color: var(--border);
+  transform: translateX(4px);
+}
+
+.menu a:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.menu a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* active link */
+.menu a.active,
+.menu a[aria-current="page"] {
+  color: var(--text);
+  background: var(--player-dim);
+  border-color: var(--player-border);
+  font-weight: 500;
+}
+
+.menu a.active::before,
+.menu a[aria-current="page"]::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.menu a.active::after,
+.menu a[aria-current="page"]::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* divider */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0.5rem 0.75rem;
+  border: none;
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  .userside {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.6rem 0.75rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .menu a {
+    padding: 0.4rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+}

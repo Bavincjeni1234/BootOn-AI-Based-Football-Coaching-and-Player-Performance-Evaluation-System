@@ -1,0 +1,393 @@
+/* ═══════════════════════════════════════════════
+   MyTraining.module.css  —  Player training panel
+   Green accent  |  BootOn Design System
+═══════════════════════════════════════════════ */
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rowIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* ── Page wrapper ── */
+.trainingPage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 2rem;
+  overflow-y: auto;
+  gap: 1.5rem;
+}
+
+/* ── Page title ── */
+.title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin: 0;
+  align-self: flex-start;
+}
+
+.title::after {
+  content: ' 📋';
+}
+
+/* ── Table wrapper ── */
+.tableWrapper {
+  width: 100%;
+  max-width: 1480px;
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  animation: cardUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Green top strip */
+.tableWrapper::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--player), var(--player-dark));
+  border-radius: 18px 18px 0 0;
+  pointer-events: none;
+}
+
+/* ── Table ── */
+.trainingTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+}
+
+/* ── Table head ── */
+.trainingTable thead tr {
+  background: var(--surface-2);
+}
+
+.trainingTable thead th {
+  padding: 1rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.trainingTable thead th:first-child { padding-left: 1.5rem; }
+.trainingTable thead th:last-child  { padding-right: 1.5rem; }
+
+/* ── Table body rows ── */
+.trainingTable tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s ease;
+  animation: rowIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 0;
+}
+
+.trainingTable tbody tr:last-child { border-bottom: none; }
+.trainingTable tbody tr:hover      { background: var(--surface-2); }
+
+/* Row stagger */
+.trainingTable tbody tr:nth-child(1)  { animation-delay: 0.05s; }
+.trainingTable tbody tr:nth-child(2)  { animation-delay: 0.10s; }
+.trainingTable tbody tr:nth-child(3)  { animation-delay: 0.15s; }
+.trainingTable tbody tr:nth-child(4)  { animation-delay: 0.20s; }
+.trainingTable tbody tr:nth-child(5)  { animation-delay: 0.25s; }
+.trainingTable tbody tr:nth-child(6)  { animation-delay: 0.30s; }
+.trainingTable tbody tr:nth-child(7)  { animation-delay: 0.35s; }
+.trainingTable tbody tr:nth-child(8)  { animation-delay: 0.40s; }
+.trainingTable tbody tr:nth-child(9)  { animation-delay: 0.45s; }
+.trainingTable tbody tr:nth-child(10) { animation-delay: 0.50s; }
+
+/* ── Table cells ── */
+.trainingTable tbody td {
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-weight: 300;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.trainingTable tbody td:first-child {
+  padding-left: 1.5rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.trainingTable tbody td:last-child { padding-right: 1.5rem; }
+
+/* Empty state */
+.trainingTable tbody tr td[colspan] {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── File link ── */
+.fileLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--player);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.28rem 0.65rem;
+  border-radius: 6px;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  transition: all 0.2s ease;
+}
+
+.fileLink::before {
+  content: '📄';
+  font-size: 0.75rem;
+}
+
+.fileLink:hover {
+  background: rgba(74, 222, 128, 0.15);
+  border-color: var(--player);
+  transform: translateY(-1px);
+}
+
+/* ── Action cell container ── */
+.actionCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* ── Shared button base ── */
+.completeBtn,
+.completedBtn,
+.rateBtn,
+.chatBtn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow  0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity     0.2s ease;
+}
+
+/* Shimmer sweep — all buttons except disabled */
+.completeBtn::before,
+.rateBtn::before,
+.chatBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.45s ease;
+}
+
+.completeBtn:hover::before,
+.rateBtn:hover::before,
+.chatBtn:hover::before {
+  left: 130%;
+}
+
+.completeBtn:hover,
+.rateBtn:hover,
+.chatBtn:hover {
+  transform: translateY(-2px);
+}
+
+.completeBtn:active,
+.rateBtn:active,
+.chatBtn:active {
+  transform: translateY(0);
+  opacity: 0.85;
+}
+
+/* Complete Task — green solid */
+.completeBtn {
+  padding: 0.38rem 0.85rem;
+  background: var(--player);
+  color: #0a0a0f;
+  box-shadow: 0 2px 0 var(--player-dark);
+}
+
+.completeBtn:hover {
+  box-shadow: 0 4px 16px var(--player-glow), 0 2px 0 var(--player-dark);
+}
+
+/* Completed — muted green (disabled) */
+.completedBtn {
+  padding: 0.38rem 0.85rem;
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--player);
+  border: 1px solid rgba(74, 222, 128, 0.22);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.completedBtn::before {
+  content: '✓';
+  margin-right: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Rate Coach — gold ghost */
+.rateBtn {
+  padding: 0.38rem 0.85rem;
+  background: rgba(245, 197, 24, 0.08);
+  color: var(--accent);
+  border: 1px solid rgba(245, 197, 24, 0.25);
+}
+
+.rateBtn:hover {
+  background: rgba(245, 197, 24, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(245, 197, 24, 0.2);
+}
+
+/* Chat — green ghost (changed from teal) */
+.chatBtn {
+  padding: 0.38rem 0.85rem;
+  background: transparent;
+  color: var(--player);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+}
+
+.chatBtn:hover {
+  background: rgba(74, 222, 128, 0.08);
+  border-color: var(--player);
+}
+
+/* ── Responsive adjustments ── */
+@media (max-width: 1024px) {
+  .trainingTable tbody td {
+    white-space: normal;
+    word-break: break-word;
+    min-width: 120px;
+  }
+
+  .actionCell {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .completeBtn,
+  .completedBtn,
+  .rateBtn,
+  .chatBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .trainingPage {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .trainingTable tbody td,
+  .trainingTable thead th {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .trainingTable tbody td:first-child {
+    padding-left: 1rem;
+  }
+
+  .trainingTable tbody td:last-child {
+    padding-right: 1rem;
+  }
+
+  .fileLink {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .completeBtn,
+  .completedBtn,
+  .rateBtn,
+  .chatBtn {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Optional: Add scrollbar styling */
+.tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: var(--surface-2);
+  border-radius: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* ── Loading state (optional if you add it later) ── */
+@keyframes shimmerLoading {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.loadingRow td {
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmerLoading 1.5s infinite;
+}

@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables ──────────────────────────────────────────── */
+:root {
+  --bg:            #0a0a0f;
+  --surface:       #111118;
+  --surface-2:     #16161f;
+  --surface-3:     #1c1c27;
+  --border:        rgba(255, 255, 255, 0.07);
+  --text:          #f0eff5;
+  --muted:         rgba(240, 239, 245, 0.38);
+  --accent:        #f5c518;
+
+  /* Player green — sent bubbles */
+  --player:        #4ade80;
+  --player-dim:    rgba(74, 222, 128, 0.13);
+  --player-mid:    rgba(74, 222, 128, 0.22);
+  --player-glow:   rgba(74, 222, 128, 0.28);
+  --player-border: rgba(74, 222, 128, 0.25);
+  --player-dark:   #16a34a;
+
+  /* Coach teal — received bubbles */
+  --coach:         #38bdf8;
+  --coach-dim:     rgba(56, 189, 248, 0.08);
+  --coach-glow:    rgba(56, 189, 248, 0.2);
+  --coach-border:  rgba(56, 189, 248, 0.2);
+}
+
+/* ─── Outer Container ────────────────────────────────────── */
+.chatContainer {
+  height: calc(100vh - 68px);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  animation: pageFade 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.chatContainer > * {
+  max-width: 860px;
+  width: 100%;
+  align-self: center;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.chatHeader {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  padding: 1.25rem 1.75rem;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  box-shadow:
+    inset 0 1px 0 rgba(74,222,128,0.08),
+    0 -4px 24px rgba(0,0,0,0.3);
+}
+
+/* animated green dot */
+.chatHeader::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--player);
+  box-shadow: 0 0 10px var(--player-glow), 0 0 20px var(--player-mid);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--player-glow); opacity: 1; }
+  50%       { box-shadow: 0 0 18px var(--player-glow), 0 0 32px var(--player-mid); opacity: 0.7; }
+}
+
+.chatHeader span {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.chatHeader em {
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--player);
+  background: var(--player-dim);
+  border: 1px solid var(--player-border);
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  margin-left: auto;
+}
+
+/* ─── Messages Area ──────────────────────────────────────── */
+.chatMessages {
+  flex: 1;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  /* subtle grid pattern */
+  background-image:
+    linear-gradient(rgba(74,222,128,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,222,128,0.015) 1px, transparent 1px);
+  background-size: 32px 32px;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(74,222,128,0.2) transparent;
+}
+
+.chatMessages::-webkit-scrollbar { width: 4px; }
+.chatMessages::-webkit-scrollbar-track { background: transparent; }
+.chatMessages::-webkit-scrollbar-thumb {
+  background: rgba(74,222,128,0.2);
+  border-radius: 4px;
+}
+.chatMessages::-webkit-scrollbar-thumb:hover {
+  background: rgba(74,222,128,0.4);
+}
+
+/* ─── Empty State ────────────────────────────────────────── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 0.5rem;
+  margin: auto;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.emptyState::before {
+  content: '💬';
+  font-size: 2rem;
+  opacity: 0.3;
+}
+
+/* ─── Bubbles ────────────────────────────────────────────── */
+.sentMessage,
+.receivedMessage {
+  max-width: 62%;
+  padding: 0.65rem 1rem 0.55rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  word-break: break-word;
+  animation: bubbleIn 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+  position: relative;
+}
+
+@keyframes bubbleIn {
+  from { opacity: 0; transform: scale(0.94) translateY(5px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+/* ─── Sent (Player) — green, right ──────────────────────── */
+.sentMessage {
+  align-self: flex-end;
+  background: linear-gradient(135deg, rgba(74,222,128,0.18) 0%, rgba(74,222,128,0.08) 100%);
+  border: 1px solid var(--player-border);
+  border-radius: 18px 18px 4px 18px;
+  color: var(--text);
+  box-shadow:
+    0 2px 12px rgba(74,222,128,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.sentMessage::before {
+  content: 'You';
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--player);
+  margin-bottom: 0.3rem;
+}
+
+/* ─── Received (Coach) — teal, left ─────────────────────── */
+.receivedMessage {
+  align-self: flex-start;
+  background: var(--surface-3);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px 18px 18px 4px;
+  color: rgba(240,239,245,0.85);
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.receivedMessage::before {
+  content: 'Coach';
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--coach);
+  margin-bottom: 0.3rem;
+}
+
+/* ─── Input Bar ──────────────────────────────────────────── */
+.chatInput {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 1px solid rgba(74,222,128,0.1);
+  border-radius: 0 0 20px 20px;
+  flex-shrink: 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* ─── Input Box ──────────────────────────────────────────── */
+.inputBox {
+  flex: 1;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.7rem 1.1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.inputBox::placeholder { color: rgba(240,239,245,0.18); }
+.inputBox:hover { border-color: rgba(255,255,255,0.12); }
+
+.inputBox:focus {
+  border-color: var(--player-border);
+  background: #13131c;
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.08);
+}
+
+/* ─── Send Button — green ────────────────────────────────── */
+.sendBtn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #050f07;
+  background: var(--player);
+  border: none;
+  border-radius: 12px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 0 var(--player-dark), 0 4px 18px var(--player-glow);
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sendBtn::after {
+  content: '↑';
+  font-size: 1rem;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.sendBtn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.4s ease;
+}
+
+.sendBtn:hover::before { left: 130%; }
+
+.sendBtn:hover {
+  background: #86efac;
+  box-shadow: 0 2px 0 var(--player-dark), 0 6px 24px rgba(74,222,128,0.4);
+  transform: translateY(-2px);
+}
+
+.sendBtn:hover::after { transform: translateY(-2px); }
+
+.sendBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 var(--player-dark), 0 2px 8px var(--player-glow);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .chatContainer  { padding: 1rem 0.75rem; }
+  .chatMessages   { padding: 1rem; }
+  .chatInput      { padding: 0.75rem 1rem; }
+  .sentMessage,
+  .receivedMessage { max-width: 85%; }
+  .sendBtn        { padding: 0.7rem 1rem; }
+}
